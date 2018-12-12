@@ -30,7 +30,7 @@ Some of the above may seem a little abstract at the moment, but we will get into
 
 I made up this handy-dandy diagram that illustrates the levels of separation afforded by a vm compared to a container.
 
-![Difference between containers and VMs](Containers-VMs.png)
+![Difference between containers and VMs](img/Containers-VMs.png)
 
 _Figure 1) Architectural differences between VMs and containers_
 
@@ -138,7 +138,7 @@ We can do this with [Volume Mounts](https://docs.docker.com/storage/volumes/), w
 
 Because of this IO redirection, when we destroy the container, all the data is persisted on the host OS, so if we spin up a new version of the container with the same volume mapping - it simply inherits the state from that volume.
 
-![Volume Mapping from container to guest OS](VolumeMapping.png)
+![Volume Mapping from container to guest OS](img/VolumeMapping.png)
 
 _Figure 2) Container volume mounted to host directory_
 
@@ -150,7 +150,7 @@ docker run -v ~/qrcodes:/app/output qrcodegenerator [YOUR TEXT HERE]
 
 If you go to your user root directory there will be a new folder there called `qrcodes` containing a png file that is your data encoded as a QR Code! Here's mine (pro-tip: open the camera app on your iOS or Android device and it will automatically read the code for you):
 
-|![iOS scanning QR code](iosscan.png)|![QR Code](qrcode.png)|
+|![iOS scanning QR code](img/iosscan.png)|![QR Code](img/qrcode.png)|
 |---|---|
 
 _Table 1) Shows the generated QR from the sample app_
@@ -165,7 +165,7 @@ Containers started off running applications that were stateless, things like web
 
 In fact, recent [data from DataDog](https://www.datadoghq.com/docker-adoption/) a leading monitoring platform for cloud native applications shows that 7 of the top 10 applications deployed using containers are indeed stateful. Redis, Postgres, ElasticSearch, Mongo, MySQL, etcd and RabbitMQ are all stateful applications - and that state needs to be stored somewhere.
 
-![DataDog most used containers](DataDog.png)
+![DataDog most used containers](img/DataDog.png)
 
 _Figure 3) The top ten most used containers - DataDog, 2018_
 
