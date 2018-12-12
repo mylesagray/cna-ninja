@@ -100,7 +100,7 @@ drwxr-xr-x  6 mylesgray  staff   192 12 Dec 18:31 01_Why-Containers
 -rw-r--r--  1 mylesgray  staff    39 12 Dec 18:28 readme.md
 ```
 
-I've got a few versions of the app we're going to deploy within the `01_Why-Containers` folder; `v1` and `v2`. Let's enter the `v1` directory and execute the sample application I built `app.py`, if you're a curious sort you can look at the code but simply, it takes some input text and generates a QR Code png file as an output.
+I've got a few versions of the app we're going to deploy within the `01_Why-Containers` folder; [`v1`](v1/) and [`v2`](v2/). Let's enter the `v1` directory and execute the sample application I built `app.py`, if you're a curious sort you can look at the code but simply, it takes some input text and generates a QR Code png file as an output.
 
 ```sh
 cd 01_Why-Containers/v1
