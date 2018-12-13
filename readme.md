@@ -6,5 +6,9 @@ Through this whole learning series - we’ll start with some code that runs on y
 
 ## The Parts
 
+<<<<<<< HEAD
 1. [Why Containers, why now?](01_Why-Containers/)
 2. [Scaling Out](01_Scaling-Out/)
+=======
+1. [Why Containers, why now?](01_Why-Containers/)
+>>>>>>> master

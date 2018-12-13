@@ -1,6 +1,6 @@
-# Becoming a CNA Ninja 1: Why Containers, why now?
+# Becoming a CNA Ninja 1: Why Containers, why now
 
-## What's in it for me?
+## What's in it for me
 
 We are going to take you, the humble reader from CNA zero, to CNA hero. We will introduce every feature and topic thoroughly, explain why it's needed and show it in action with practical, follow-along examples.
 
@@ -31,14 +31,13 @@ Some of the above may seem a little abstract at the moment, but we will get into
 I made up this handy-dandy diagram that illustrates the levels of separation afforded by a vm compared to a container.
 
 ![Difference between containers and VMs](img/Containers-VMs.png)
-
 _Figure 1) Architectural differences between VMs and containers_
 
 You will note that each VM has its own guest OS, bins, libraries and application, usually all deployed bespoke by-hand (think deploying MS SQL, installing .Net as a prerequisite, etc) even if not deployed by hand they can be deployed with a framework like vRA, Ansible, Puppet, Chef, et al.
 
 This is not the case for the containers on the right hand side of the diagram. The app code, bins and libraries are all self-contained (heh), but the guest-os is shared between them. The separation and security boundary moves up the stack from the VM level to the OS-process level.
 
-## Why do I need them?
+## Why do I need them
 
 What's the problem with doing things the "VM way" above I hear you ask? Easy - if (when) something changes inside the VM; a library is updated, application is updated, and it has unexpected effects on the way the application runs how easy is that to troubleshoot or roll back? How easy is it to know _something_ has changed without trawling logs?
 
@@ -139,7 +138,6 @@ We can do this with [Volume Mounts](https://docs.docker.com/storage/volumes/), w
 Because of this IO redirection, when we destroy the container, all the data is persisted on the host OS, so if we spin up a new version of the container with the same volume mapping - it simply inherits the state from that volume.
 
 ![Volume Mapping from container to guest OS](img/VolumeMapping.png)
-
 _Figure 2) Container volume mounted to host directory_
 
 With that in mind let's adjust our `docker run` command to employ Volume Mounts and mount a folder on our machine - thereby proxying all filesystem output for `/app/output` within the container to a new folder `~/qrcodes` in our user's root directory, so the data is persisted:
@@ -153,8 +151,6 @@ If you go to your user root directory there will be a new folder there called `q
 |![iOS scanning QR code](img/iosscan.png)|![QR Code](img/qrcode.png)|
 |---|---|
 
-_Table 1) Shows the generated QR from the sample app_
-
 ### Persisting storage with containers
 
 We just now touched on one of the major pain points early adopters of containers stumbled upon - storage persistence. When destroying one container and spinning up a new version the entire container and all of its contents are destroyed - there is good reason for this.
@@ -166,7 +162,6 @@ Containers started off running applications that were stateless, things like web
 In fact, recent [data from DataDog](https://www.datadoghq.com/docker-adoption/) a leading monitoring platform for cloud native applications shows that 7 of the top 10 applications deployed using containers are indeed stateful. Redis, Postgres, ElasticSearch, Mongo, MySQL, etcd and RabbitMQ are all stateful applications - and that state needs to be stored somewhere.
 
 ![DataDog most used containers](img/DataDog.png)
-
 _Figure 3) The top ten most used containers - DataDog, 2018_
 
 ## Next time on the CNA Ninja Series
