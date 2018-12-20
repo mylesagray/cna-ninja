@@ -3,16 +3,34 @@ import sys
 import qrcode
 import os
 
-# Set the name of the output directory for the QRCode
-directory = "output"
+# Import libraries for base64 encoding for DB
+import base64
+from io import BytesIO
 
-# Create directory if it doesn't exist
-if not os.path.exists(directory):
-    os.makedirs(directory)
+# Import mongoengine libraries
+from mongoengine import connect
+
+# Import our database models
+from models import User, QRCode
+
+# Connect to MongoDB database
+connect('qrsite')
+
+# Get user input
+text = sys.argv[1]
+
+# Create in-memory storage for image for later conversion to base64
+buffered_image = BytesIO()
 
 # Create a QRCode from the input query of the application and save to disk
-img = qrcode.make(sys.argv[1])
-img.save(directory+"/"+sys.argv[1]+".png", "PNG")
+img = qrcode.make(text)
+img.save(buffered_image, format="PNG")
+b64png = base64.b64encode(buffered_image.getvalue())
 
-# Output confirmation text to the CLIcd Gi  
-print("Created QR Code for: " + sys.argv[1])
+# Save generated image to mongodb
+qr = QRCode(title=text)
+qr.content = b64png
+qr.save()
+
+# Output confirmation text to the CLI 
+print("Created QR Code for: " + text + " and stored in MongoDB.")
