@@ -11,7 +11,7 @@ from io import BytesIO
 from mongoengine import connect
 
 # Import our database models
-from models import User, QRCode
+from models import QRCode
 
 # Connect to MongoDB database
 connect('qrsite')
