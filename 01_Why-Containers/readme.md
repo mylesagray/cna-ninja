@@ -84,10 +84,10 @@ All communications from the docker command-line tool `docker` are done via [the 
 
 I find the best way to learn things is by doing - now that we have the background and an understanding of containers and their various components, let's create one! You'll need to [install Docker](https://www.docker.com/get-started) and [git](https://git-scm.com/downloads) on your local machine for this, i'm using macOS but these commands are largely transferable to Linux and Windows.
 
-I've set up a [GitHub repository](https://github.com/mylesgray/cna-ninja) we will use throughout this series to pull code and examples from, so to kick off let's navigate to a directory where we want to clone the repository into and clone it:
+I've set up a [GitHub repository](https://github.com/mylesagray/cna-ninja) we will use throughout this series to pull code and examples from, so to kick off let's navigate to a directory where we want to clone the repository into and clone it:
 
 ```sh
-git clone https://github.com/mylesgray/cna-ninja.git
+git clone https://github.com/mylesagray/cna-ninja.git
 cd cna-ninja/
 ```
 
@@ -166,4 +166,4 @@ _Figure 3) The top ten most used containers - DataDog, 2018_
 
 ## Next time on the CNA Ninja Series
 
-The above just highlights the importance of Volume Mounts just one concept in the container landscape, but like everything else - it's easy on your laptop, not so much at scale on larger systems - that topic as well as many more are in store for the next installment of the CNA Ninja series, so stay tuned, give [the repository](https://github.com/mylesgray/cna-ninja) a Watch to be alerted of the next release!
+The above just highlights the importance of Volume Mounts just one concept in the container landscape, but like everything else - it's easy on your laptop, not so much at scale on larger systems - that topic as well as many more are in store for the next installment of the CNA Ninja series, so stay tuned, give [the repository](https://github.com/mylesagray/cna-ninja) a Watch to be alerted of the next release!
