@@ -94,27 +94,62 @@ cd cna-ninja/
 At this point you should have the following in your directory:
 
 ```sh
-drwxr-xr-x  6 mylesgray  staff   192 12 Dec 18:31 01_Why-Containers
+$ ls -l
+drwxr-xr-x  3 mylesgray  staff    96 14 Dec 14:38 00_Tools
+drwxr-xr-x  6 mylesgray  staff   192 22 Jan 14:27 01_Why-Containers
+drwxr-xr-x  5 mylesgray  staff   160 13 Dec 00:28 02_Scaling-Out
 -rw-r--r--  1 mylesgray  staff  1067 12 Dec 18:28 LICENSE
--rw-r--r--  1 mylesgray  staff    39 12 Dec 18:28 readme.md
+-rw-r--r--  1 mylesgray  staff   967 13 Dec 00:26 readme.md
 ```
+
+### Version 1
 
 I've got a few versions of the app we're going to deploy within the `01_Why-Containers` folder; [`v1`](v1/) and [`v2`](v2/). Let's enter the `v1` directory and execute the sample application I built `app.py`, if you're a curious sort you can look at the code but simply, it takes some input text and generates a QR Code png file as an output.
 
 ```sh
-cd 01_Why-Containers/v1
-python src/app.py [YOUR TEXT HERE]
+python 01_Why-Containers/v1/src/app.py [YOUR TEXT HERE]
 ```
 
 You'll find that probably didn't work because of missing libraries required by the script, so you'd have to run `pip install -r requirements.txt` (assuming you even have `pip` installed...) and then re-run the app. See how this is already a pain?
 
 If it did work for you, great! You'll have a QR Code with the input text encoded in it in the `output` folder it generated. For those of you this didn't work for, fret-not. Our `v2` application will be a containerised version of the _exact_ same code, and if you followed my prerequisites and installed docker, you'll be off to the races!
 
-So let's use docker build an image and run the exact same application without having to worry about any python dependencies or runtimes (this build command will take a little while):
+### Version 2
+
+So let's use Docker to build an image and run the exact same application without having to worry about any python dependencies or runtimes.
+
+I am going to introduce the `Dockerfile` here, this is what tells Docker how to build the image for a container that we can then deploy anywhere. You will find one pre-created at [`v2/Dockerfile`](v2/Dockerfile) and open it in your editor of choice (as in [Part 0](../00_Tools/) - I use Visual Studio Code):
 
 ```sh
-cd 01_Why-Containers/v2
-docker build -t qrcodegenerator .
+code 01_Why-Containers/v2/Dockerfile
+```
+
+I encourage you to take a look through the Dockerfile code, it is very easy to understand and will help you get a grip of it for creating your own containers. I have commented the code below to fully explain what each line does:
+
+```Dockerfile
+# Set base image to build from as the official Python 3 image
+FROM python:3
+
+# Copy the python library requirements for our app from the local directory the build command is executed from, to the container
+COPY requirements.txt /
+
+# Install the Python requirements in the container
+RUN pip install -r /requirements.txt
+
+# Copy our app's source code from the src/ directory on our local machine into the container
+COPY src/ /app
+
+# Set the working directory of the container's entrypoint (what directory the ENTRYPOINT command executes from) - this command could equally be omitted and the ENTRYPOINT line changed to 'ENTRYPOINT ["python", "/app/app.py"]'
+WORKDIR /app
+
+# Execute the application with python
+ENTRYPOINT ["python", "app.py"]
+```
+
+At this point we are ready to build our first Docker container! (this build command will take a little while). The command below will tell Docker to build an image using the Dockerfile we just looked at, and call the image `qrcodegenerator` so we can run instances of it later:
+
+```sh
+docker build -f 01_Why-Containers/v2/Dockerfile -t qrcodegenerator .
 ```
 
 Then we can execute the container to run the app, here we tell Docker to use the image that we just created called `qrcodegenerator` to create the container, and we pass the string we want `[YOUR TEXT HERE]` to the input of the container.
@@ -140,13 +175,13 @@ Because of this IO redirection, when we destroy the container, all the data is p
 ![Volume Mapping from container to guest OS](img/VolumeMapping.png)
 _Figure 2) Container volume mounted to host directory_
 
-With that in mind let's adjust our `docker run` command to employ Volume Mounts and mount a folder on our machine - thereby proxying all filesystem output for `/app/output` within the container to a new folder `~/qrcodes` in our user's root directory, so the data is persisted:
+With that in mind let's adjust our `docker run` command to employ Volume Mounts and mount a folder on our machine - thereby proxying all filesystem output for `/app/output` within the container to a new folder `qrcodes` in our user's home directory, so the data is persisted:
 
 ```sh
 docker run -v ~/qrcodes:/app/output qrcodegenerator [YOUR TEXT HERE]
 ```
 
-If you go to your user root directory there will be a new folder there called `qrcodes` containing a png file that is your data encoded as a QR Code! Here's mine (pro-tip: open the camera app on your iOS or Android device and it will automatically read the code for you):
+If you go to your user home directory there will be a new folder there called `qrcodes` containing a png file that is your data encoded as a QR Code! Here's mine (pro-tip: open the camera app on your iOS or Android device and it will automatically read the code for you):
 
 |![iOS scanning QR code](img/iosscan.png)|![QR Code](img/qrcode.png)|
 |---|---|
@@ -166,4 +201,4 @@ _Figure 3) The top ten most used containers - DataDog, 2018_
 
 ## Next time on the CNA Ninja Series
 
-The above just highlights the importance of Volume Mounts just one concept in the container landscape, but like everything else - it's easy on your laptop, not so much at scale on larger systems - that topic as well as many more are in store for the next installment of the CNA Ninja series, so stay tuned, give [the repository](https://github.com/mylesagray/cna-ninja) a Watch to be alerted of the next release!
+The above just highlights the importance of Volume Mounts just one concept in the container landscape, but like everything else - it's easy on your laptop, not so much at scale on larger systems - that topic as well as many more are in store for the next installment of the CNA Ninja series, so stay tuned, give [the repository](https://github.com/mylesagray/cna-ninja) a "Watch" to be alerted of the next release!
