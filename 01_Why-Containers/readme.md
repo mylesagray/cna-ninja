@@ -84,4 +84,4 @@ All communications from the docker command-line tool `docker` are done via [the 
 
 The above introduced the components of containers, where they came from, what Docker is and why you should care about containers from an operational point of view. Now that you know the history and the core concepts - how about getting stuck in and building a container? Check out [Part 2 - Your First Container](../02_First-Container/) where we create and docker container from scratch and deploy it!
 
-Stay tuned for updates to the CNA Ninja series, give [the repository](https://github.com/mylesagray/cna-ninja) a "Watch" to be alerted of the next release!
+Stay tuned for updates to the CNA Ninja series, give [the repository](https://github.com/mylesagray/cna-ninja) a "Watch" or [follow me on Twitter](https://twitter.com/mylesagray) to be alerted of the next release.
