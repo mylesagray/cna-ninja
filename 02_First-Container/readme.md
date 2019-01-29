@@ -138,6 +138,7 @@ What we have seen over the last few years is applications that are inherently st
 In fact, recent [data from DataDog](https://www.datadoghq.com/docker-adoption/) (a leading monitoring platform for cloud native applications) shows that 7 of the top 10 applications deployed using containers are indeed stateful. Redis, Postgres, ElasticSearch, Mongo, MySQL, etcd and RabbitMQ are all stateful applications - and that state needs to be stored somewhere.
 
 ![DataDog most used containers](img/DataDog.png)
+
 _Figure 3) The top ten most used containers - DataDog, 2018_
 
 ## Next time on the CNA Ninja Series
