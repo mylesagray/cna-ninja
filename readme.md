@@ -15,3 +15,7 @@ Then continue to evolve the app with each step until it’s fully fault tolerant
 * [Part 0 - The Tools](00_Tools/)
 * [Part 1 - Why Containers, why now?](01_Why-Containers/)
 * [Part 2 - Your First Container](02_First-Container/)
+
+## Updates
+
+To stay tuned for updates to the CNA Ninja series, give [the repository](https://github.com/mylesagray/cna-ninja) a "Watch" or [follow me on Twitter](https://twitter.com/mylesagray) to be alerted of the next release.
