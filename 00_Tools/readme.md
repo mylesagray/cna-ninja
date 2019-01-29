@@ -6,11 +6,11 @@ If, like me, until recently you were a sysadmin - probably with a little "coding
 
 This new world of containers and declaritive systems can seem daunting and arcane. Part of this is obviously rooted in the lack of proficiency or core, fundamental understanding of how things like containers, orchestrators, service meshes or CI/CD pipelines work or operate which is what this series aims to clear up.
 
-There are no fancy UIs here, UIs slow you down and lack the ability to easily re-create steps without proneness to errors.
+There are no fancy UIs here, UIs slow you down and lack the ability to easily re-create steps without proneness to errors. Sure, UIs exist in the CNA world - but the difference is they are primarily for _observability_ not management.
 
-Additionally, imperative systems (ones that are built up from incremental changes over time) are almost impossible to re-create accurately. This makes declerative systems where the end-state is defined at the beginning extremely attractive, everything is repeatable - regardless of the operator and can be revision controlled and rolled back making ops much easier.
+Additionally, imperative systems (ones that are built up from incremental changes over time) are almost impossible to re-create accurately. This makes declarative systems, where the end-state is defined at the beginning, extremely attractive - everything is repeatable regardless of the operator and can be revision controlled as well as rolled back making ops much more fluid and predictable.
 
-Some of the confusion, however, is lacking the correct tools and understanding of _how_ you are meant to interact with these new solutions. In a few words it comes down to this:
+Some of the confusion in this new world, however, is lacking the correct tools and understanding of _how_ you are meant to interact with these new solutions. In a few words it comes down to this:
 
 _Everything is CLI and config file driven._
 
@@ -18,17 +18,19 @@ _Everything is CLI and config file driven._
 
 When working with CNA-type apps and systems there are a few programs that are invaluable:
 
-* A package manager of your OS
+* A package manager for your OS
 * A terminal
 * A text editor
-* OS Packages
+* Some OS packages
 * A REST API client
 
 I run macOS but the tooling doesn't vary much across OSes.
 
 ### Package Manager
 
-The first thing on the list is a package manager - it's much easier to install and stay up to date with applications and binaries when you can invoke a simple `install` or `update` command from the CLI - nobody wants to Google, find the maintainer's website and download the latest release every time there is an update or new package needed. You will also find that the tooling for building and operating these systems relies on quite a few applications to be installed on your local machine, so getting this out of the way early makes a lot of sense.
+The first thing on the list is a package manager - it's much easier to install and stay up to date with applications and binaries when you can invoke a simple `install` or `update` command from the CLI - nobody wants to Google, find the maintainer's website and download the latest release every time there is an update or new package needed.
+
+You will also find that the tooling for building and operating these systems relies on quite a few applications to be installed on your local machine, so getting this out of the way early makes a lot of sense.
 
 On macOS I use [`brew`](https://brew.sh) as my package manager - `brew` is the ubiquitous package manager for macOS and can install compiled applications (`casks`) as well as applications that need to be built for your OS (`bottles`). I use it to manage all applications on my mac, even the GUI ones ([see my dotfiles repo](https://github.com/mylesagray/dotfiles/blob/master/brew.sh)).
 
@@ -62,7 +64,7 @@ If you want to update your existing packages installed by `brew` just run a `bre
 
 The leading package manager for Windows is [`Chocolatey`](https://chocolatey.org), it works in much the same way as `brew` for macOS above, in that you can install [pre-defined packages](https://chocolatey.org/packages) on your OS from the CLI as well as update them.
 
-All of the packages we install with `brew` throughout this series with some notable exceptions (iTerm) should be available for install by `choco install` as well.
+All of the packages we install with `brew` throughout this series, with some notable exceptions (iTerm), should be available for install by `choco install` as well.
 
 A useful one to test with is `wget`:
 
@@ -84,7 +86,7 @@ Just use your built-in OS package manager - you probably already know what it is
 
 ### Terminal
 
-Given we will be spending _a lot_ of time in the terminal for this series and in general, having a good terminal that is customisable is a must for ease of use and general sanity. You might ask "What's wrong with the terminal that comes with my OS?". The answer is nothing - however extensibility of third part terminals is far beyond that of most built-in terminals.
+Given we will be spending _a lot_ of time in the terminal for this series and in general, having a good terminal that is customisable is a must for ease of use and general sanity. You might ask "What's wrong with the terminal that comes with my OS?". The answer is nothing - however extensibility of third party terminals is far beyond that of most built-in terminals.
 
 #### macOS
 
@@ -93,7 +95,7 @@ I use [iTerm2](https://www.iterm2.com) on macOS, it has a ton of functionality a
 While you're here, install it with `brew`:
 
 ```sh
-brew install iterm2
+brew cask install iterm2
 ```
 
 ![iTerm2](img/iTerm2.png)
@@ -122,7 +124,7 @@ I was a die-hard [Sublime-Text](https://www.sublimetext.com) user for years, but
 
 [VSCode](https://code.visualstudio.com) for short, has gone from strength to strength and the community has really rallied behind this open-source editor from Microsoft. Not to be confused with vanilla "Visual Studio", VSCode is a much lighter-weight text editor that is extendable and user-friendly.
 
-It has all kinds of cool features like syntax-highlighting, themeing, integrated terminals, git integration, debugging and a plethora of features that can be installed via the build in extension installer.
+It has all kinds of cool features like syntax-highlighting, themeing, integrated terminals, git integration, debugging and a plethora of features that can be installed via the built in extension installer.
 
 ![VSCode](img/VSCode.png)
 
@@ -174,7 +176,7 @@ brew install bash-completion coreutils findutils moreutils
 
 ### REST API client
 
-When working with systems like Docker, Kubernetes, cloud services we will be interacting with APIs a lot - additionally as we build a app out through the course of this series it will be implementing a [RESTful API](https://stackoverflow.com/questions/671118/what-exactly-is-restful-programming) - It makes life a lot easier if we can send requests to these API endpoints through an environment that allows us to set variables and set up workspaces, etc.
+When working with systems like Docker, Kubernetes, cloud services we will be interacting with APIs a lot - additionally as we build an app out through the course of this series it will be implementing a [RESTful API](https://stackoverflow.com/questions/671118/what-exactly-is-restful-programming) - It makes life a lot easier if we can send requests to these API endpoints through an environment that allows us to set variables and set up workspaces, etc.
 
 #### POSTman
 
