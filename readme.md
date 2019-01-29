@@ -15,4 +15,3 @@ Then continue to evolve the app with each step until it’s fully fault tolerant
 * [Part 0 - The Tools](00_Tools/)
 * [Part 1 - Why Containers, why now?](01_Why-Containers/)
 * [Part 2 - Your First Container](02_First-Container/)
-* [Part 3 - Scaling Out](03_Scaling-Out/)
